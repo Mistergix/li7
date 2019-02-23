@@ -41,15 +41,19 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'bootstrap-vue/nuxt'
   ],
   /*
   ** Axios module configuration
   */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: process.env.API_URL || 'http://localhost:1337'
+  },
+
+  bootstrapVue: {
+    bootstrapCSS: true, // or `css`
+    bootstrapVueCSS: true // or `bvCSS`
   },
 
   /*
