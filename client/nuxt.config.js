@@ -1,7 +1,21 @@
+const axios = require('axios')
 const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
+  generate: {
+    routes: function () {
+      return axios.get('http://localhost:1337/galleries')
+        .then((res) => {
+          return res.data.map((gallery) => {
+            return {
+              route: '/seeimage/' + gallery.id,
+              payload: gallery
+            }
+          })
+        })
+    }
+  },
 
   /*
   ** Headers of the page
@@ -14,7 +28,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Kavivanar|Roboto' }
     ]
   },
 
@@ -27,6 +42,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/css/main.scss'
   ],
 
   /*

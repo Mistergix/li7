@@ -2,7 +2,7 @@
   <b-container fluid>
     <b-row>
       <b-col v-for="gallery in galleries" :key="gallery._id" lg="4" md="6">
-        <b-button href="#" variant="dark" block>
+        <b-button :href="`seeimage/${gallery.id}`" variant="dark" block>
           {{ gallery.title }}
         </b-button>
       </b-col>
