@@ -1,13 +1,32 @@
+const fs = require('fs')
+const path = require('path')
 const axios = require('axios')
 const pkg = require('./package')
 
+async function getBase64(url) {
+  const response = await axios.get(url, { responseType: 'arraybuffer' })
+  return Buffer.from(response.data, 'binary').toString('base64')
+}
+
 module.exports = {
   mode: 'universal',
+  env: {
+    serverUrl: process.env.API_URL || 'http://localhost:1337'
+  },
   generate: {
     routes: function () {
       return axios.get('http://localhost:1337/galleries')
         .then((res) => {
           return res.data.map((gallery) => {
+            for (let i = 0; i < gallery.photos.length; i++) {
+              const data = gallery.photos[i]
+              const url = `http://localhost:1337${data.url}`
+              getBase64(url).then((res) => {
+                const newPath = path.join(__dirname, `static${data.url.replace('/uploads', '')}`)
+                fs.writeFileSync(newPath, res, 'base64')
+              })
+            }
+
             return {
               route: '/seeimage/' + gallery.id,
               payload: gallery
