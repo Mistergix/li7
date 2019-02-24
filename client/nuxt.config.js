@@ -8,7 +8,14 @@ async function getBase64(url) {
   return Buffer.from(response.data, 'binary').toString('base64')
 }
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/li7/'
+  }
+} : {}
+
 module.exports = {
+  ...routerBase,
   mode: 'universal',
   env: {
     serverUrl: process.env.API_URL || 'http://localhost:1337'
