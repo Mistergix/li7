@@ -13,7 +13,7 @@ export default {
 
   data: function () {
     return {
-      urls: this.gallery.photos.map((data) => { return `${data.url.replace('/uploads', `${process.env.DEPLOY_ENV === 'GH_PAGES' ? '/li7' : ''}`)}` })
+      urls: this.gallery.photos.map((data) => { return `${data.url.replace('/uploads', '')}` })
     }
   },
   mounted() {
