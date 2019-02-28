@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col v-for="gallery in galleries" :key="gallery._id" lg="4" md="6">
+      <b-col v-for="gallery in galleries" :key="gallery._id" lg="4" md="6" class="p-3">
         <b-button :href="`seeimage/${gallery.id}`" variant="dark" block>
           {{ gallery.title }}
         </b-button>

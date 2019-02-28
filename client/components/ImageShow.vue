@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <img id="image" src="#" alt="" srcset="">
+  <div class="img-wrapper">
+    <b-img id="image" src="#" alt="" srcset="" fluid />
+    <b-button id="back-btn" href="/li7">
+      Retour
+    </b-button>
   </div>
 </template>
 
@@ -13,7 +16,7 @@ export default {
 
   data: function () {
     return {
-      urls: this.gallery.photos.map((data) => { return `${data.url.replace('/uploads', `${process.env.DEPLOY_ENV === 'GH_PAGES' ? '/li7' : ''}`)}` })
+      urls: this.gallery.photos.map((data) => { return `${data.url.replace('/uploads', '/li7')}` })
     }
   },
   mounted() {
@@ -24,3 +27,31 @@ export default {
   }
 }
 </script>
+
+<style>
+.img-wrapper
+{
+  height: 100vh;
+  width: 100vw;
+}
+
+#back-btn {
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: white; /* Set a background color */
+  color: black; /* Text color */
+  border: 1px solid black;
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#back-btn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+</style>
